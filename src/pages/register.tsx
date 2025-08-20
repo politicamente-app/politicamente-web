@@ -19,7 +19,7 @@ const RegisterPage = () => {
     try {
       // Faz a requisição POST para o endpoint de registro da sua API
       const response = await api.post('/auth/register', {
-        name,
+        full_name: name,
         email,
         password,
       });

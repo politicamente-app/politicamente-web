@@ -16,11 +16,15 @@ const LoginPage = () => {
     setError(''); // Limpa mensagens de erro anteriores
 
     try {
+      const formData = new URLSearchParams();
+      formData.append('username', email); // Usa o email como username
+      formData.append('password', password); // Adiciona a senha ao formData
+
       // Faz a requisição POST para o endpoint de login da sua API
-      const response = await api.post('/auth/login', {
-        email,
-        password,
-      });
+      const response = await api.post('/auth/login', formData, { // <--- Adicionando o terceiro argumento
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded' // <--- Força o Content-Type
+        }});
 
       // Se o login for bem-sucedido, a API deve retornar um token JWT
       const { access_token } = response.data;
